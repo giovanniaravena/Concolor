@@ -24,13 +24,14 @@ public class PlayerController : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.UpArrow))
         if (Input.GetButtonDown("Jump"))
         {
-            jump = true;
+            jump = true;            
         }
 
         //agacharse
         if (Input.GetButtonDown("Crouch"))
         {
             crouch = true;
+            
         }else if (Input.GetButtonUp("Crouch"))
         {
             crouch = false;
@@ -40,11 +41,19 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump); //move, crouch, jump
-        if (horizontalMove==0) 
+        //Debug.Log("controller.Move: "+);
+        
+        if(crouch)
+            animator.SetTrigger("PumaCrouch_Anim");
+        //else if(jump)
+        //    animator.SetTrigger("PumaJump_Anim");
+        else if (horizontalMove==0) 
             animator.SetTrigger("PumaWait_Anim");
         else
             animator.SetTrigger("PumaRun_Anim");
+        
         jump = false;
+        
     }
 
    

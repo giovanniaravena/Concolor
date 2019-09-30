@@ -29,9 +29,11 @@ public class CharacterController2D : MonoBehaviour
 
 	public BoolEvent OnCrouchEvent;
 	private bool m_wasCrouching = false;
-
+	
+	private Animator animator;
 	private void Awake()
 	{
+		animator = GetComponent<Animator>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
 		if (OnLandEvent == null)
@@ -126,6 +128,7 @@ public class CharacterController2D : MonoBehaviour
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
+			animator.SetTrigger("PumaJump_Anim");
 			// Add a vertical force to the player.
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
